@@ -202,9 +202,11 @@ body {
 
 @media (hover: hover) {
     .option-btn:hover {
-        background-color: var(--secondary-color);
-        color: var(--white);
+        /* background-color: var(--secondary-color); Remove color change */
+        /* color: var(--white); Remove text color change */
         transform: scale(1.02);
+        background-color: var(--white);
+        color: var(--text-color);
     }
 }
 
