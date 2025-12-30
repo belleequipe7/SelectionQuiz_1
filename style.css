@@ -20,7 +20,7 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -200,10 +200,12 @@ body {
     color: var(--text-color);
 }
 
-.option-btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    transform: scale(1.02);
+@media (hover: hover) {
+    .option-btn:hover {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        transform: scale(1.02);
+    }
 }
 
 .option-btn:active {
