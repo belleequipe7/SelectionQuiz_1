@@ -80,6 +80,7 @@ class QuizGame {
         this.score = 0;
         this.currentQuestions = []; // subset of 10
         this.audio = new AudioManager();
+        this.rankingManager = new RankingManager();
 
         this.startTime = 0;
         this.endTime = 0;
@@ -104,6 +105,7 @@ class QuizGame {
         this.rankingList = document.getElementById('ranking-list');
         this.gameTitle = document.getElementById('game-title');
         this.titleStars = document.getElementById('title-stars');
+        // Removed export/import logic
 
         this.bindEvents();
         this.renderStars();
@@ -274,11 +276,11 @@ class QuizGame {
         }
     }
 
-    endGame() {
+    async endGame() {
         this.endTime = Date.now();
         const duration = (this.endTime - this.startTime) / 1000; // seconds
 
-        const rankIndex = this.saveScore(this.nickname, this.score, duration);
+        const rankIndex = await this.saveScore(this.nickname, this.score, duration);
         let rankMsg = "";
 
         // rankIndex is 0-based index if in top 10, or -1 if outside
@@ -300,33 +302,14 @@ class QuizGame {
         this.renderRanking(rankIndex);
     }
 
-    saveScore(nickname, score, time) {
-        let ranking = JSON.parse(localStorage.getItem('quizRanking')) || [];
-
-        // Create new entry
-        const entry = { nickname, score, time, timestamp: Date.now() }; // Timestamp to identify unique entry
-        ranking.push(entry);
-
-        // Sort: Score DESC, then Time ASC
-        ranking.sort((a, b) => {
-            if (b.score !== a.score) {
-                return b.score - a.score;
-            }
-            return a.time - b.time;
-        });
-
-        // Keep top 10
-        const top10 = ranking.slice(0, 10);
-
-        localStorage.setItem('quizRanking', JSON.stringify(top10));
-
-        // Find index of our entry in top 10
-        const index = top10.findIndex(r => r.timestamp === entry.timestamp);
-        return index;
+    async saveScore(nickname, score, time) {
+        return await this.rankingManager.saveScore(nickname, score, time);
     }
 
-    renderRanking(highlightIndex = -1) {
-        let ranking = JSON.parse(localStorage.getItem('quizRanking')) || [];
+    async renderRanking(highlightIndex = -1) {
+        // Fetch fresh ranking data
+        await this.rankingManager.fetchRanking();
+        let ranking = this.rankingManager.getRanking();
 
         if (ranking.length === 0) {
             this.rankingList.innerHTML = '<div class="ranking-item empty">ランキングデータはありません</div>';
