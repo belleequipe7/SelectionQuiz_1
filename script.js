@@ -240,6 +240,7 @@ class QuizGame {
 
     checkAnswer(selectedBtn) {
         const isCorrect = selectedBtn.dataset.isCorrect === 'true';
+        selectedBtn.blur(); // Remove focus to prevent sticky hover on mobile
 
         this.optionButtons.forEach(btn => btn.disabled = true);
 
