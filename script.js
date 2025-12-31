@@ -105,6 +105,12 @@ class QuizGame {
         this.rankingList = document.getElementById('ranking-list');
         this.gameTitle = document.getElementById('game-title');
         this.titleStars = document.getElementById('title-stars');
+
+        // Info Popup Elements
+        this.infoPopup = document.getElementById('info-popup');
+        this.infoPlayCount = document.getElementById('info-play-count');
+        this.closeInfoBtn = document.getElementById('close-info-btn');
+
         // Removed export/import logic
 
         this.bindEvents();
@@ -119,7 +125,11 @@ class QuizGame {
             this.startGame();
         });
         document.getElementById('exit-btn-start').addEventListener('click', () => this.exitGame());
+        document.getElementById('exit-btn-start').addEventListener('click', () => this.exitGame());
         document.getElementById('exit-btn-popup').addEventListener('click', () => this.returnToStart());
+        this.closeInfoBtn.addEventListener('click', () => {
+            this.infoPopup.classList.add('hidden');
+        });
 
         this.optionButtons.forEach(btn => {
             btn.addEventListener('click', (e) => this.checkAnswer(e.target));
@@ -351,20 +361,8 @@ class QuizGame {
     }
 
     showPlayCount() {
-        const originalHtml = this.gameTitle.innerHTML;
-        this.gameTitle.textContent = `${this.playCount}回`;
-
-        // Temporarily disable click to prevent glitch
-        const originalPointerEvents = this.gameTitle.style.pointerEvents;
-        this.gameTitle.style.pointerEvents = 'none';
-
-        setTimeout(() => {
-            this.gameTitle.innerHTML = originalHtml;
-            // Restore stars just in case innerHTML got messed up (it should be fine since we saved it)
-            // Actually, innerHTML saves children too so <span> stars are preserved.
-            this.renderStars(); // Ensure stars are up to date
-            this.gameTitle.style.pointerEvents = originalPointerEvents;
-        }, 1000);
+        this.infoPlayCount.textContent = `${this.playCount}回`;
+        this.infoPopup.classList.remove('hidden');
     }
 
     returnToStart() {

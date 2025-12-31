@@ -559,3 +559,24 @@ body {
         font-size: 1.1rem;
     }
 }
+
+/* Info Popup Styles */
+.info-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.play-count-display {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+
+.version-info {
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    color: #888;
+    line-height: 1.6;
+}
