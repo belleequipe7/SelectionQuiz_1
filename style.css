@@ -558,6 +558,22 @@ body {
     #result-message {
         font-size: 1.1rem;
     }
+
+    /* Info Popup Mobile Styles */
+    .info-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .play-count-display {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .version-info {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
 }
 
 /* Info Popup Styles */
