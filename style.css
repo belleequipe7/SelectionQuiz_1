@@ -58,6 +58,15 @@ body {
     text-align: center;
 }
 
+.subtitle {
+    font-size: 2.7rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 0 var(--text-color);
+    font-weight: bold;
+    color: var(--white);
+    animation: bounce 2s infinite;
+}
+
 .title {
     font-size: 4rem;
     margin-bottom: 2rem;
@@ -498,6 +507,10 @@ body {
 @media (max-width: 768px) {
     .title {
         font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.7rem;
     }
 
     #nickname-input {
